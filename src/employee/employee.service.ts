@@ -9,13 +9,15 @@ import { v4 as uuid } from 'uuid';
 export class EmployeeService {
 	constructor(@InjectModel(EmployeeModel.name) private EmployeeDoc: Model<EmployeeDoc>) {}
 
-	async create(employee: Employee): Promise<Employee> {
+	async create(employee: Employee): Promise<Employee[]> {
 		employee.id = uuid().toString();
-		return new this.EmployeeDoc(employee).save();
+		await new this.EmployeeDoc(employee).save();
+		return this.findAll();
 	}
 
-	async update(id: string, employee: Employee): Promise<any> {
-		return this.EmployeeDoc.updateOne({ id }, { ...employee }).exec();
+	async update(id: string, employee: Employee): Promise<Employee[]> {
+		await this.EmployeeDoc.updateOne({ id }, { ...employee }).exec();
+		return this.findAll();
 	}
 
 	async find(id: string): Promise<Employee> {
@@ -26,8 +28,9 @@ export class EmployeeService {
 		return this.EmployeeDoc.find().exec();
 	}
 	
-	async delete(id: string): Promise<any> {
-		return this.EmployeeDoc.deleteOne({ id }).exec();
+	async delete(id: string): Promise<Employee[]> {
+		await this.EmployeeDoc.deleteOne({ id }).exec();
+		return this.findAll();
 	}
 	
 }

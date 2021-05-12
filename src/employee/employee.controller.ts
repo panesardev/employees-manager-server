@@ -7,29 +7,27 @@ export class EmployeeController {
 	constructor(private readonly service: EmployeeService) {}
 
 	@Post()
-	async create(@Body() employee: Employee): Promise<Employee> {
+	async create(@Body() employee: Employee) {
 		return await this.service.create(employee);
 	}
 
 	@Put('/:id')
-	async update(@Param('id') id: string, @Body() employee: Employee): Promise<any> {
+	async update(@Param('id') id: string, @Body() employee: Employee) {
 		return await this.service.update(id, employee);
 	}
 	
 	@Get()
-	async findAll(): Promise<Employee[]> {
+	async findAll() {
 		return await this.service.findAll();
 	}
 
 	@Get('/:id')
-	async find(@Param('id') id: string): Promise<Employee> {
-		console.log(id);
-		
+	async find(@Param('id') id: string) {
 		return await this.service.find(id);
 	}
 
 	@Delete('/:id')
-	async delete(@Param('id') id: string): Promise<any> {
+	async delete(@Param('id') id: string) {
 		return await this.service.delete(id);
 	}
 }
