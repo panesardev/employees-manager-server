@@ -12,16 +12,16 @@ export class EmployeeService {
 	async create(employee: Employee): Promise<Employee[]> {
 		employee.id = uuid().toString();
 		await new this.EmployeeDoc(employee).save();
-		return this.findAll();
+		return await this.findAll();
 	}
 
 	async update(id: string, employee: Employee): Promise<Employee[]> {
 		await this.EmployeeDoc.updateOne({ id }, { ...employee }).exec();
-		return this.findAll();
+		return await this.findAll();
 	}
 
 	async find(id: string): Promise<Employee> {
-		return this.EmployeeDoc.findOne({ id }).exec();
+		return await this.EmployeeDoc.findOne({ id }).exec();
 	}
 	
 	async findAll(): Promise<Employee[]> {
@@ -30,7 +30,7 @@ export class EmployeeService {
 	
 	async delete(id: string): Promise<Employee[]> {
 		await this.EmployeeDoc.deleteOne({ id }).exec();
-		return this.findAll();
+		return await this.findAll();
 	}
 	
 }

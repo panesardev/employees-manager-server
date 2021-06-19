@@ -15,7 +15,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService]
     }),
-    EmployeeModule
+    EmployeeModule,
   ],
   controllers: [],
   providers: [],
